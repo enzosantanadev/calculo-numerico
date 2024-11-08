@@ -18,16 +18,15 @@ def gauss_seidel(max_iter=1000, limite=1e-6):
             abs(x3 - x3_antigo) < limite and
             abs(x4 - x4_antigo) < limite):
             print(f"Convergência alcançada em {i+1} iterações")
-            break
-    else:
-        print("Número máximo de iterações alcançado, pode não ter convergido")
-        return None
+            return x1, x2, x3, x4
 
-    return x1, x2, x3, x4
+    print("Número máximo de iterações alcançado, pode não ter convergido")
+    return None
 
-x1, x2, x3, x4 = gauss_seidel()
+resultados = gauss_seidel()
 
-if x1 is not None:
+if resultados:
+    x1, x2, x3, x4 = resultados
     print("Quantidade de computadores produzidos por dia:")
     print(f"Tipo 1: {x1:.2f}")
     print(f"Tipo 2: {x2:.2f}")
@@ -49,3 +48,5 @@ if x1 is not None:
     print(f"Metal: {metal_novo:.2f} kg/dia")
     print(f"Plástico: {plastico_novo:.2f} kg/dia")
     print(f"Componentes: {componentes_novo:.2f} kg/dia")
+else:
+    print("O método de Gauss-Seidel não convergiu.")
