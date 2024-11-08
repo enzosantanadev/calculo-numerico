@@ -1,0 +1,33 @@
+def gauss_seidel(max_iter=1000, limite=1e-6):
+    x1, x2, x3, x4 = 0, 0, 0, 0
+
+    # Loop para as iterações
+    for i in range(max_iter):
+        x1_antigo, x2_antigo, x3_antigo, x4_antigo = x1, x2, x3, x4
+
+        
+        x1 = (504 - 4 * x2 - 7 * x3 - 20 * x4) / 3
+        x2 = (1970 - 20 * x1 - 40 * x3 - 50 * x4) / 25
+        x3 = (970 - 10 * x1 - 15 * x2 - 22 * x4) / 20
+        x4 = (601 - 10 * x1 - 8 * x2 - 10 * x3) / 15
+
+      
+        if (abs(x1 - x1_antigo) < limite and
+            abs(x2 - x2_antigo) < limite and
+            abs(x3 - x3_antigo) < limite and
+            abs(x4 - x4_antigo) < limite):
+            print(f"Convergência alcançada em {i+1} iterações")
+            break
+    else:
+        print("Número máximo de iterações alcançado, pode não ter convergido")
+
+    return x1, x2, x3, x4
+
+x1, x2, x3, x4 = gauss_seidel()
+
+
+print("Quantidade de computadores produzidos por dia:")
+print(f"Tipo 1: {x1:.2f}")
+print(f"Tipo 2: {x2:.2f}")
+print(f"Tipo 3: {x3:.2f}")
+print(f"Tipo 4: {x4:.2f}")
