@@ -1,0 +1,33 @@
+import numpy as np
+
+# Matriz de coeficientes (A) e vetor de constantes (b)
+A = np.array([
+    [3, 4, 7, 20],
+    [20, 25, 40, 50],
+    [10, 15, 20, 22],
+    [10, 8, 10, 15]
+], dtype=float)
+b = np.array([504, 1970, 970, 601], dtype=float)
+
+# Chute inicial: começamos com todas as variáveis igual a zero
+x = np.zeros(len(b))
+
+# Parâmetros do método
+tolerancia = 1e-10  # Precisão desejada para considerar que convergiu
+max_iteracoes = 100  # Número máximo de iterações
+
+# Método de Gauss-Seidel
+for _ in range(max_iteracoes):
+    x_novo = np.copy(x)  # Copia o vetor x para atualizar os valores
+    for i in range(A.shape[0]):  # Percorre cada variável
+        # Calcula a soma das partes antes e depois do valor atual na linha
+        soma1 = np.dot(A[i, :i], x_novo[:i])
+        soma2 = np.dot(A[i, i + 1:], x[i + 1:])
+        # Atualiza o valor da variável usando a fórmula de Gauss-Seidel
+        x_novo[i] = (b[i] - soma1 - soma2) / A[i, i]
+    # Verifica se a solução convergiu, ou seja, se x_novo está próximo de x
+    if np.allclose(x, x_novo, atol=tolerancia):
+        break
+    x = x_novo  # Atualiza x com os novos valores para a próxima iteração
+
+print("Quantidade de cada tipo de computador que pode ser produzida por dia:", x)
